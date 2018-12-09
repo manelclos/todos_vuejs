@@ -11,7 +11,12 @@
     <ul>
       <li
         v-for="todo in todos"
-        :key="todo.description">
+        :key="todo.pk">
+        <div>
+          <button
+            @click="onRemoveItem(todo.id)"
+          >X</button>
+        </div>
         <div>{{ todo.due_date }}</div>
         <div
           class="todo-description"
@@ -33,14 +38,17 @@ export default {
       description: '',
       todos: [
         {
+          pk: 1,
           description: 'Preparar taller VueJS',
           due_date: '2018-12-10',
         },
         {
+          pk: 2,
           description: 'Enviar correu recordatori sobre portàtils, etc.',
           due_date: '2018-12-12',
         },
         {
+          pk: 3,
           description: 'Taller VueJS - UdG',
           due_date: '2018-12-13',
         },
@@ -50,8 +58,14 @@ export default {
   methods: {
     onAdd () {
       this.todos.push({
+        id: Date.now(),
         description: this.description,
         due_date: this.dueDate
+      })
+    },
+    onRemoveItem (pk) {
+      this.todos = this.todos.filter(item => {
+        return item.pk !== pk
       })
     }
   }
