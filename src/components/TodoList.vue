@@ -1,6 +1,13 @@
 <template>
   <div class="todo-list">
     <h1>{{ title }}</h1>
+    <form>
+      Due date: <input v-model="dueDate" type="date" />
+      Description: <input v-model="description" size="50" />
+      <button
+        @click.prevent="onAdd"
+        >Afegir</button>
+    </form>
     <ul>
       <li
         v-for="todo in todos"
@@ -22,6 +29,8 @@ export default {
   },
   data: function () {
     return {
+      dueDate: '',
+      description: '',
       todos: [
         {
           description: 'Preparar taller VueJS',
@@ -36,6 +45,14 @@ export default {
           due_date: '2018-12-13',
         },
       ]
+    }
+  },
+  methods: {
+    onAdd () {
+      this.todos.push({
+        description: this.description,
+        due_date: this.dueDate
+      })
     }
   }
 }
