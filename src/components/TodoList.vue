@@ -9,26 +9,26 @@
         >Afegir</button>
     </form>
     <ul>
-      <li
+      <todo-item
         v-for="todo in todosSorted"
-        :key="todo.pk">
-        <div>
-          <button
-            @click="onRemoveItem(todo.id)"
-          >X</button>
-        </div>
-        <div>{{ todo.due_date }}</div>
-        <div
-          class="todo-description"
-          >{{ todo.description }}</div>
-      </li>
+        :key="todo.pk"
+        :todo="todo"
+        @remove="onRemoveItem"
+      >
+      </todo-item>
+
     </ul>
   </div>
 </template>
 
 <script>
+import TodoItem from './TodoItem.vue'
+
 export default {
   name: 'TodoList',
+  components: {
+    TodoItem
+  },
   props: {
     title: String
   },
@@ -93,12 +93,5 @@ ul {
   width: 600px;
   margin-left: auto;
   margin-right: auto;
-}
-li {
-  display: flex;
-  padding: 5px 0;
-}
-.todo-description {
-  margin-left: 15px;
 }
 </style>
