@@ -10,7 +10,7 @@
     </form>
     <ul>
       <li
-        v-for="todo in todos"
+        v-for="todo in todosSorted"
         :key="todo.pk">
         <div>
           <button
@@ -53,6 +53,19 @@ export default {
           due_date: '2018-12-13',
         },
       ]
+    }
+  },
+  computed: {
+    todosSorted () {
+      return this.todos.concat().sort((a, b) => {
+        if (a.due_date < b.due_date) {
+          return -1
+        }
+        if (a.due_date > b.due_date) {
+          return 1
+        }
+        return 0
+      })
     }
   },
   methods: {
