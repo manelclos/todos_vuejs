@@ -6,7 +6,7 @@
         @click="$emit('remove', todo.pk)"
       >X</button>
     </div>
-    <div>{{ todo.due_date }}</div>
+    <div><router-link :to="{ name: 'edit', params: { pk: todo.pk } }">{{ todo.due_date }}</router-link></div>
     <div
       class="todo-description"
       >{{ todo.description }}</div>
