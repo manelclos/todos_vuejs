@@ -22,6 +22,7 @@
 </template>
 
 <script>
+import apiclient from '../lib/apiclient.js'
 import TodoItem from './TodoItem.vue'
 
 export default {
@@ -36,23 +37,24 @@ export default {
     return {
       dueDate: '',
       description: '',
-      todos: [
-        {
-          pk: 1,
-          description: 'Preparar taller VueJS',
-          due_date: '2018-12-10',
-        },
-        {
-          pk: 2,
-          description: 'Enviar correu recordatori sobre portàtils, etc.',
-          due_date: '2018-12-12',
-        },
-        {
-          pk: 3,
-          description: 'Taller VueJS - UdG',
-          due_date: '2018-12-13',
-        },
-      ]
+      todos: []
+      // todos: [
+      //   {
+      //     pk: 1,
+      //     description: 'Preparar taller VueJS',
+      //     due_date: '2018-12-10',
+      //   },
+      //   {
+      //     pk: 2,
+      //     description: 'Enviar correu recordatori sobre portàtils, etc.',
+      //     due_date: '2018-12-12',
+      //   },
+      //   {
+      //     pk: 3,
+      //     description: 'Taller VueJS - UdG',
+      //     due_date: '2018-12-13',
+      //   },
+      // ]
     }
   },
   computed: {
@@ -68,18 +70,30 @@ export default {
       })
     }
   },
+  created () {
+    this.refreshTodos()
+  },
   methods: {
     onAdd () {
-      this.todos.push({
-        id: Date.now(),
-        description: this.description,
-        due_date: this.dueDate
+      apiclient.createTodo({
+          description: this.description,
+          dueDate: this.dueDate,
+          dueTime: '00:00:00Z'
       })
+        .then(response => {
+          this.refreshTodos()
+        })
     },
     onRemoveItem (pk) {
       this.todos = this.todos.filter(item => {
         return item.pk !== pk
       })
+    },
+    refreshTodos () {
+      apiclient.getTodos()
+        .then(data => {
+          this.todos = data
+        })
     }
   }
 }
