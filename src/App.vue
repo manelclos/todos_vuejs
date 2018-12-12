@@ -1,19 +1,12 @@
 <template>
   <div id="app">
-    <todo-list title="Python Girona TODO list"></todo-list>
+    <div id="nav">
+      <router-link to="/">Home</router-link> |
+      <router-link to="/edit">Edit</router-link>
+    </div>
+    <router-view/>
   </div>
 </template>
-
-<script>
-import TodoList from './components/TodoList.vue'
-
-export default {
-  name: 'app',
-  components: {
-    TodoList
-  }
-}
-</script>
 
 <style>
 #app {
