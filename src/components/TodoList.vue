@@ -88,6 +88,10 @@ export default {
       this.todos = this.todos.filter(item => {
         return item.pk !== pk
       })
+      apiclient.deleteTodo(pk)
+        .then(response => {
+          this.refreshTodos()
+        })
     },
     refreshTodos () {
       apiclient.getTodos()

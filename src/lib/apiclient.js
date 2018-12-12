@@ -17,6 +17,16 @@ class ApiClient {
       body: JSON.stringify(data)
     })
   }
+
+  deleteTodo(pk) {
+    return fetch('https://server3.microdisseny.com/apps/todos/api/v1/todos/' + pk, {
+      method: 'delete',
+      headers: {
+        'Accept': 'application/json, text/plain, */*',
+        'Content-Type': 'application/json'
+      }
+    })
+  }
 }
 
 const apiclient = new  ApiClient()
